@@ -1,0 +1,33 @@
+# Some ML models Specially the ChatBots use the Json format in cases so to convert it into the JavaScript-Object-Notation (JSON) the Below it the Code
+
+# Datset CSV to JSON
+#Importing the Libraries
+import pandas as pd
+import json
+
+#Selecting the file path and checking
+df = pd.read_csv("datasets\\Motor_Vehicle_Act_Dataset.csv")
+df.head()
+
+#Code for converting it to the JSON using the Json Library
+json_data = []
+
+for _, row in df.iterrows():
+    record = {
+        "chapter": row["chapter"],
+        "section": row["section"],
+        "subsection": row["subsection"],
+        "text": row["text"]
+    }
+
+    json_data.append(record)
+
+#Checking whether the file is successfully created or not 
+with open("motor_vehicle_act_dataset.json", "w", encoding="utf-8") as f:
+    json.dump(json_data, f, indent=4, ensure_ascii=False)
+
+print("JSON file created successfully")
+
+#Checking if the file is saved in proper way or not
+df = pd.read_json('datasets\\motor_vehicle_act_dataset.json')
+df.head()
